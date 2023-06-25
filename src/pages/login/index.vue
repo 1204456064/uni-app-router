@@ -1,12 +1,12 @@
 <template>
     <view>
-        <!-- <view>
+        <view>
             <movable-area scale-area>
                 <movable-view direction="all" scale scale-min="1" scale-max="3" :scale-value="scale">
                     <image src="/src/assets/back.png" mode="widthfix" />
                 </movable-view>
             </movable-area>
-        </view> -->
+        </view>
         <view class="card">
             <view class="card__title"> <text>剑开天门</text> </view>
             <view class="flex-row">
@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import useLogin from '@/pages/login/useLogin';
 import { ref, onMounted } from 'vue';
+import { countStore } from '../../store';
 
 /**
  * @description 缩放比例
@@ -57,7 +58,7 @@ const { formRef, form, rules } = useLogin();
 const login = async () => {
     // 表单校验
     await formRef.value.validate();
-
+    countStore().add();
     // 校验通过
     // const res = await Login.login({
     //     account: form.value.account,
@@ -78,13 +79,27 @@ const login = async () => {
     uni.switchTab({ url: '/pages/index/index' });
 };
 
+function big() {
+    scale.value += 0.1;
+    if (scale.value >= 3) {
+        setTimeout(small, 100);
+
+        return;
+    }
+    setTimeout(big, 100);
+}
+
+function small() {
+    scale.value -= 0.1;
+    if (scale.value < 1) {
+        setTimeout(big, 100);
+        return;
+    }
+    setTimeout(small, 100);
+}
+
 onMounted(() => {
-    // setInterval(() => {
-    //     scale.value += 0.05;
-    //     if (scale.value >= 2.9) {
-    //         scale.value = 1;
-    //     }
-    // }, 80);
+    big();
 });
 </script>
 
@@ -118,13 +133,13 @@ body {
     //     rgb(255, 159, 122) 82.6%,
     //     rgb(255, 109, 58) 100.2%
     // );
-    background: radial-gradient(
-        circle at 50% 50%,
-        rgb(209, 231, 235) 7.4%,
-        rgb(238, 219, 199) 51.4%,
-        rgb(255, 159, 122) 82.6%,
-        rgb(255, 109, 58) 100.2%
-    );
+    // background: radial-gradient(
+    //     circle at 50% 50%,
+    //     rgb(209, 231, 235) 7.4%,
+    //     rgb(238, 219, 199) 51.4%,
+    //     rgb(255, 159, 122) 82.6%,
+    //     rgb(255, 109, 58) 100.2%
+    // );
     // background-color: rgb(246, 223, 228);
     // background-color: black;
 }
@@ -137,14 +152,14 @@ body {
     //     rgb(255, 159, 122) 82.6%,
     //     rgb(255, 109, 58) 100.2%
     // );
-    background: radial-gradient(
-        circle at 50% 50%,
-        rgb(209, 231, 235) 7.4%,
-        rgb(238, 219, 199) 51.4%,
-        rgb(255, 159, 122) 82.6%,
-        rgb(255, 109, 58) 100.2%
-    );
-    // background-color: rgb(246, 223, 228);
+    // background: radial-gradient(
+    //     circle at 50% 50%,
+    //     rgb(209, 231, 235) 7.4%,
+    //     rgb(238, 219, 199) 51.4%,
+    //     rgb(255, 159, 122) 82.6%,
+    //     rgb(255, 109, 58) 100.2%
+    // );
+    background-color: rgb(246, 223, 228);
     position: absolute;
     z-index: 9999;
     text-align: center;

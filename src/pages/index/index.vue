@@ -7,7 +7,14 @@
     </view>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted } from 'vue';
+import { countStore } from '@/store';
+
+onMounted(() => {
+    console.log(countStore().getContext());
+});
+</script>
 
 <style>
 * {

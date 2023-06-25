@@ -1,12 +1,11 @@
 import { createSSRApp } from 'vue';
-import { key, store } from '@/store/index';
-
+import { createPinia } from 'pinia';
 import App from './App.vue';
 import uviewPlus from 'uview-plus';
 
 export function createApp() {
     const app = createSSRApp(App);
-
+    app.use(createPinia());
     app.use(uviewPlus);
 
     /**
